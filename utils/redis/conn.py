@@ -1,4 +1,17 @@
-import redis
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+# =============================================================================
+#      FileName: conn.py
+#          Desc: redis pool
+#        Author: Dong Wei Chao
+#         Email: 435904632@qq.com
+#      HomePage: https://github.com/hyperwd
+#       Version: 0.0.1
+#    LastChange: 2018-08-08 03:14:25
+#       History:
+# =============================================================================
+'''
 import configparser
 
 conf = configparser.ConfigParser()
