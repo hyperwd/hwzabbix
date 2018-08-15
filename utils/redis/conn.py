@@ -13,25 +13,30 @@
 # =============================================================================
 '''
 import configparser
+import redis
 
-conf = configparser.ConfigParser()
-conf.read('/etc/.hwzabbix/config.ini')
+CONF = configparser.ConfigParser()
+CONF.read('/etc/.hwzabbix/config.ini')
 
-redis_host = conf.get('redis', 'host')
-redis_port = conf.get('redis', 'port')
-redis_password = conf.get('redis', 'password')
-redis_db = conf.get('redis', 'db')
+REDIS_HOST = CONF.get('redis', 'host')
+REDIS_PORT = CONF.get('redis', 'port')
+REDIS_PASSWORD = CONF.get('redis', 'password')
+REDIS_DB = CONF.get('redis', 'db')
 
 
-def pool():
+def redis_pool():
+    """redis conn pool
+    :returns: TODO
+
+    """
     try:
-        pool = redis.ConnectionPool(
-            host=redis_host,
-            password=redis_password,
-            port=redis_port,
-            db=redis_db,
+        r_p = redis.ConnectionPool(
+            host=REDIS_HOST,
+            password=REDIS_PASSWORD,
+            port=REDIS_PORT,
+            db=REDIS_DB,
             decode_responses=True)
-        r = redis.Redis(connection_pool=pool)
-        return r
-    except Exception as e:
-        return 'could not connect to redis'
+        redis_conn = redis.Redis(connection_pool=r_p)
+        return redis_conn
+    except Exception as error:
+        raise error
