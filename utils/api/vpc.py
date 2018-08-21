@@ -48,7 +48,7 @@ class Vpc(object):
             d_account = self._redis_pool.hgetall(self._account_key)
             pid_key = 'pid_' + region + '_' + self._date_today.strftime(
                 '%Y-%m-%d')
-            eip_key = 'eip_' + region + '_' + self._date_today.strftime(
+            eip_key = 'eipinfo_' + self._date_today.strftime(
                 '%Y-%m-%d')
             #get ak,sk from redis
             #get the porject info from redis
