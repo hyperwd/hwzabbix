@@ -54,7 +54,7 @@ class Iam(object):
             }
             #push ak,sk to redis,field is account
             self._redis_pool.hmset(self._account_key, d_account)
-            return 'account push to redis success'
+            return None
         except Exception as error:
             log.logging.error(error)
 
@@ -81,6 +81,6 @@ class Iam(object):
             #push ak,sk to redis,field is account and set expire time
             self._redis_pool.hmset(pid_key, dpid)
             self._redis_pool.expireat(pid_key, self._extime)
-            return 'pid push to redis success'
+            return None
         except Exception as error:
             log.logging.error(error)

@@ -68,6 +68,6 @@ class Vpc(object):
             #push ak,sk to redis,field is account and set expirt time
             self._redis_pool.hmset(eip_key, deip)
             self._redis_pool.expireat(eip_key, self._extime)
-            return 'eip push to redis success'
+            return None
         except Exception as error:
             log.logging.error(error)
