@@ -29,7 +29,6 @@ class Vpc(object):
         """
         self._redis_pool = conn.redis_pool()
         self._account_key = 'account'
-        self._d_account = self._redis_pool.hgetall(self._account_key)
         self._date_today = datetime.date.today()
         self._date_tommorrow = self._date_today + datetime.timedelta(days=1)
         self._extime = datetime.datetime.strptime(
@@ -46,6 +45,7 @@ class Vpc(object):
         """
         try:
             deip = {}
+            d_account = self._redis_pool.hgetall(self._account_key)
             pid_key = 'pid_' + region + '_' + self._date_today.strftime(
                 '%Y-%m-%d')
             eip_key = 'eip_' + region + '_' + self._date_today.strftime(
@@ -56,8 +56,8 @@ class Vpc(object):
             #get the eip info from huaweicloud openapi
             for pid in lpid:
                 l_res = signer.Sign(
-                    self._d_account['ak'],
-                    self._d_account['sk'],
+                    d_account['ak'],
+                    d_account['sk'],
                     'GET',
                     'vpc.' + region + '.myhuaweicloud.com',
                     '/v1/' + pid + '/publicips',

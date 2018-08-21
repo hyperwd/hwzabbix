@@ -69,10 +69,11 @@ class Iam(object):
             dpid = {}
             pid_key = 'pid_' + region + '_' + self._date_today.strftime(
                 '%Y-%m-%d')
+            d_account = self._redis_pool.hgetall(self._account_key)
             #get ak,sk from redis
             #get the porject info from huaweicloud openapi
-            l_resp_pid = signer.Sign(self._d_account['ak'],
-                                     self._d_account['sk'], 'GET',
+            l_resp_pid = signer.Sign(d_account['ak'],
+                                     d_account['sk'], 'GET',
                                      'iam.' + region + '.myhuaweicloud.com',
                                      '/v3/auth/projects').sign()['projects']
             for proj in l_resp_pid:
