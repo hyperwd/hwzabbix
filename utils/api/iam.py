@@ -72,13 +72,13 @@ class Iam(object):
             d_account = self._redis_pool.hgetall(self._account_key)
             #get ak,sk from redis
             #get the porject info from huaweicloud openapi
-            l_resp_pid = signer.Sign(d_account['ak'],
-                                     d_account['sk'], 'GET',
+            l_resp_pid = signer.Sign(d_account['ak'], d_account['sk'], 'GET',
                                      'iam.' + region + '.myhuaweicloud.com',
                                      '/v3/auth/projects').sign()['projects']
-            for proj in l_resp_pid:
-                if region in proj['name']:
-                    dpid[proj['name']] = proj['id']
+            dpid = {
+                proj['name']: proj['id']
+                for proj in l_resp_pid if region in proj['name']
+            }
             #push ak,sk to redis,field is account and set expire time
             self._redis_pool.hmset(pid_key, dpid)
             self._redis_pool.expireat(pid_key, self._extime)
