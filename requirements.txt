@@ -1,7 +1,7 @@
 altgraph==0.16.1
 APScheduler==3.5.2
 astroid==2.0.4
-certifi==2018.8.13
+certifi==2022.12.7
 chardet==3.0.4
 configparser==3.5.0
 docutils==0.14
